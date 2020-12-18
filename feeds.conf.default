@@ -1,0 +1,36 @@
+src-git packages https://github.com/coolsnowwolf/packages
+src-git luci https://github.com/coolsnowwolf/luci
+src-git routing https://git.openwrt.org/feed/routing.git
+src-git telephony https://git.openwrt.org/feed/telephony.git
+src-git freifunk https://github.com/freifunk/openwrt-packages.git
+#src-git video https://github.com/openwrt/video.git
+#src-git targets https://github.com/openwrt/targets.git
+#src-git management https://github.com/openwrt-management/packages.git
+#src-git oldpackages http://git.openwrt.org/packages.git
+#src-link custom /usr/src/openwrt/custom-feed
+src-git helloworld https://github.com/fw876/helloworld
+
+
+#passwall
+src-git kenzok https://github.com/kenzok8/openwrt-packages
+src-git small https://github.com/kenzok8/small
+#vssr
+src-git jerryk https://github.com/jerrykuku/openwrt-package
+#openclash
+src-git vernesong https://github.com/vernesong/OpenClash
+#dockerman
+src-git lisaac https://github.com/lisaac/luci-app-dockerman
+
+src-git src-git kongfl888 https://github.com/kongfl888/luci-app-adguardhome.git
+src-git jerrykuku https://github.com/jerrykuku/luci-app-jd-dailybonus.git
+src-git jefferymvp https://github.com/jefferymvp/luci-app-koolproxyR
+src-git tty228 https://github.com/tty228/luci-app-serverchan
+src-git sensec https://github.com/sensec/luci-app-udp2raw
+src-git Lienol https://github.com/Lienol/openwrt-package.git
+src-git xiaorouji https://github.com/xiaorouji/openwrt-passwall.git
+
+
+
+#theme
+scr-git rosywrt https://github.com/rosywrt/luci-theme-rosy
+scr-git jerryku https://github.com/jerrykuku/luci-theme-argon
