@@ -10,18 +10,12 @@ src-git freifunk https://github.com/freifunk/openwrt-packages.git
 #src-link custom /usr/src/openwrt/custom-feed
 src-git helloworld https://github.com/fw876/helloworld
 
-
-#passwall
 src-git kenzok https://github.com/kenzok8/openwrt-packages
 src-git small https://github.com/kenzok8/small
-#vssr
 src-git jerryk https://github.com/jerrykuku/openwrt-package
-#openclash
 src-git vernesong https://github.com/vernesong/OpenClash
-#dockerman
 src-git lisaac https://github.com/lisaac/luci-app-dockerman
-
-src-git src-git kongfl888 https://github.com/kongfl888/luci-app-adguardhome.git
+src-git kongfl888 https://github.com/kongfl888/luci-app-adguardhome.git
 src-git jerrykuku https://github.com/jerrykuku/luci-app-jd-dailybonus.git
 src-git jefferymvp https://github.com/jefferymvp/luci-app-koolproxyR
 src-git tty228 https://github.com/tty228/luci-app-serverchan
