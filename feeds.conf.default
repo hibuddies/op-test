@@ -22,9 +22,3 @@ src-git tty228 https://github.com/tty228/luci-app-serverchan
 src-git sensec https://github.com/sensec/luci-app-udp2raw
 src-git Lienol https://github.com/Lienol/openwrt-package.git
 src-git xiaorouji https://github.com/xiaorouji/openwrt-passwall.git
-
-
-
-#theme
-scr-git rosywrt https://github.com/rosywrt/luci-theme-rosy
-scr-git jerryku https://github.com/jerrykuku/luci-theme-argon
