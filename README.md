@@ -4,7 +4,7 @@
 
 ## 说明
 - 基于***flippy大***的固件打包脚本，适配的机型有：***S905x3（包括常见的hk1、h96、x96等盒子）***、***N1***、***贝壳云***！
-- releases中的固件分为[***精简版***](https://github.com/hibuddies/openwrt/releases/tag/ARMv8-mini-%E5%B7%B2%E6%89%93%E5%8C%85%E5%9B%BA%E4%BB%B6)和[***高大全版***](https://github.com/hibuddies/openwrt/releases/tag/ARMv8-gdq-%E5%B7%B2%E6%89%93%E5%8C%85%E5%9B%BA%E4%BB%B6)，精简版主要适合科学上网为主要需求的用户，高大全版用的是f大的配置文件，+o版是flowoffload加速,+版是sfe加速！
+- releases中的固件分为[***精简版***](https://github.com/hibuddies/op-test/releases/tag/ARMv8-mini-%E5%B7%B2%E6%89%93%E5%8C%85%E5%9B%BA%E4%BB%B6)和[***高大全版***](https://github.com/hibuddies/op-test/releases/tag/ARMv8-gdq-%E5%B7%B2%E6%89%93%E5%8C%85%E5%9B%BA%E4%BB%B6)，精简版主要适合科学上网为主要需求的用户，高大全版用的是f大的配置文件，+o版是flowoffload加速,+版是sfe加速！
 - 固件默认IP：`192.168.1.1` 默认密码： `password`
 - 精简版固件包含的插件预览：
 
