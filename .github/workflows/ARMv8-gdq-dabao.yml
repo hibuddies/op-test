@@ -61,6 +61,10 @@ jobs:
         if [[ $FLIPPY_NAME = "50" ]]; 
         then
           echo "set the flippy 50"
+         # echo "beikeyun_sfe=${{ secrets.beikeyun_sfe }}"  >> $GITHUB_ENV
+          echo "beikeyun_o=${{ secrets.beikeyun_o }}"  >> $GITHUB_ENV
+          echo "s9xx_sfe=${{ secrets.s9xxx_sfe }}"  >> $GITHUB_ENV
+          echo "s9xxx_o=${{ secrets.s9xxx_o }}"  >> $GITHUB_ENV
         fi
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install time
@@ -91,9 +95,9 @@ jobs:
         sudo rm -rf /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz
         wget  https://github.com/hibuddies/op-test/releases/download/ARMv8-gdq-flowoffload/openwrt-armvirt-64-default-rootfs.tar.gz
         cp /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz /opt/openwrt/openwrt-armvirt-64-default-rootfs.tar.gz
-        wget https://github.com/hibuddies/openwrt-arm/releases/download/Armbian/Armbian_20.10_Beikeyun_buster_5.4.83-flippy-50+o.img.xz
-        wget https://github.com/hibuddies/openwrt-arm/releases/download/Armbian/Armbian_20.10_Aml-s9xxx_buster_5.9.14-flippy-50+.img.xz
-        wget https://github.com/hibuddies/openwrt-arm/releases/download/Armbian/Armbian_20.10_Aml-s9xxx_buster_5.4.83-flippy-50+o.img.xz
+        wget $beikeyun_o
+        wget $s9xx_sfe
+        wget $s9xxx_o
         #  cp /opt/dl/$ARMBIAN_BEIKEYUN_S /opt/imgs/$ARMBIAN_BEIKEYUN_S
         cp /opt/dl/$ARMBIAN_BEIKEYUN_O /opt/imgs/$ARMBIAN_BEIKEYUN_O
         cp /opt/dl/$ARMBIAN_S9XXX_S /opt/imgs/$ARMBIAN_S9XXX_S
