@@ -63,7 +63,7 @@ jobs:
           echo "set the flippy 50"
          # echo "a_beikeyun_sfe=${{ secrets.a_beikeyun_sfe }}"  >> $GITHUB_ENV
           echo "a_beikeyun_o=${{ secrets.a_beikeyun_o }}"  >> $GITHUB_ENV
-          echo "a_s9xx_sfe=${{ secrets.a_s9xxx_sfe }}"  >> $GITHUB_ENV
+          echo "a_s9xxx_sfe=${{ secrets.a_s9xxx_sfe }}"  >> $GITHUB_ENV
           echo "a_s9xxx_o=${{ secrets.a_s9xxx_o }}"  >> $GITHUB_ENV
           echo "dibao_sfe=${{ secrets.dibao_gdq_sfe }}"  >> $GITHUB_ENV
           echo "dibao_o=${{ secrets.dibao_gdq_o }}"  >> $GITHUB_ENV
@@ -98,7 +98,7 @@ jobs:
         wget $dibao_o
         cp /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz /opt/openwrt/openwrt-armvirt-64-default-rootfs.tar.gz
         wget $a_beikeyun_o
-        wget $a_s9xx_sfe
+        wget $a_s9xxx_sfe
         wget $a_s9xxx_o
         #  cp /opt/dl/$ARMBIAN_BEIKEYUN_S /opt/imgs/$ARMBIAN_BEIKEYUN_S
         cp /opt/dl/$ARMBIAN_BEIKEYUN_O /opt/imgs/$ARMBIAN_BEIKEYUN_O
