@@ -19,7 +19,7 @@ env:
   UPLOAD_COWTRANSFER: false
   RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: ARMv8-mini-已打包固件
+  FILE_NAME: Z-ARMv8-mini
 
 jobs:
   build:
