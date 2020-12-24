@@ -83,6 +83,9 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
+        sudo cp mk_beikeyun_opimg.sh mk_beikeyun_opimg_sfe.sh
+        sudo cp mk_n1_opimg.sh mk_n1_opimg_sfe.sh
+        sudo cp mk_s905x3_opimg.sh mk_s905x3_opimg_sfe.sh
         sudo mkdir imgs
         sudo xz -d Armbian*Aml*\+\.img\.xz
         sudo xz -d Armbian*Aml*\+o*
@@ -109,17 +112,14 @@ jobs:
       id: build
       run: |
         cd /opt/openwrt
-        sudo cp mk_n1_opimg.sh mk_n1_opimg_sfe.sh
-        sudo cp mk_beikeyun_opimg.sh mk_beikeyun_opimg_sfe.sh
         chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
         sudo $GITHUB_WORKSPACE/$Update_Ver_SH
-        chmod +x *.sh
-        #  sudo bash mk_beikeyun_opimg_sfe.sh
-        sudo bash mk_s905x3_opimg_sfe.sh
-        sudo bash mk_n1_opimg_sfe.sh
-        sudo bash mk_beikeyun_opimg.sh
-        sudo bash mk_s905x3_opimg.sh
-        sudo bash mk_n1_opimg.sh
+        #  sudo ./mk_beikeyun_opimg_sfe.sh
+        sudo ./mk_s905x3_opimg_sfe.sh
+        sudo ./mk_n1_opimg_sfe.sh
+        sudo ./mk_beikeyun_opimg.sh
+        sudo ./mk_s905x3_opimg.sh
+        sudo ./mk_n1_opimg.sh
         echo "::set-output name=status::success"
 
     - name: xz-z
