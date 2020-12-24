@@ -1,4 +1,4 @@
-name: ARMv8-mini-dabao
+name: ARMv8-gdq-dabao
 
 on:
   repository_dispatch:
@@ -19,7 +19,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: ARMv8/mini-sfe.config
+  CONFIG_FILE: ARMv8/gdq-sfe.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   Update_Ver_SH: ARMv8/autoVersion.sh
@@ -29,7 +29,7 @@ env:
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: false
   TZ: Asia/Shanghai
-  FILE_NAME: Z-ARMv8-mini
+  FILE_NAME: Z-ARMv8-gdq
  # PRODUCT_NAME: ARMv8_SFE
 jobs:
   build:
@@ -58,8 +58,8 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
-        echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
+        echo "dibao_sfe=${{ secrets.dibao_gdq_sfe }}"  >> $GITHUB_ENV
+        echo "dibao_o=${{ secrets.dibao_gdq_o }}"  >> $GITHUB_ENV
 
     - name: Clone source code
       working-directory: /workdir
@@ -159,7 +159,7 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.DATE }} Openwrt for ARMv8 精简版
+        name: ${{ env.DATE }} Openwrt for ARMv8 高大全版
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: main
