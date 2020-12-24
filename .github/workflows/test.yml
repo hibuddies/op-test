@@ -88,7 +88,7 @@ jobs:
         sudo rm -rf openwrt-armvirt-64-*
         sudo wget $dibao_sfe
         sudo mv openwrt-armvirt-64-default-rootfs.tar.gz sfe-openwrt-armvirt-64-default-rootfs.tar.gz
-        wget $dibao_o
+        sudo wget $dibao_o
 
     - name: Check Files1
       run: |
