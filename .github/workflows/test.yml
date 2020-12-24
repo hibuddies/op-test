@@ -93,6 +93,7 @@ jobs:
         sudo cp mk_beikeyun_opimg.sh mk_beikeyun_opimg_sfe.sh
         sudo cp mk_n1_opimg.sh mk_n1_opimg_sfe.sh
         sudo cp mk_s905x3_opimg.sh mk_s905x3_opimg_sfe.sh
+        sudo rm -rf mk_l1pro_opimg.sh mk_s922x_opimg.sh n1-to-vplus.sh
         sudo rm -rf openwrt-armvirt-64-*
         sudo wget $dibao_sfe
         sudo mv openwrt-armvirt-64-default-rootfs.tar.gz sfe-openwrt-armvirt-64-default-rootfs.tar.gz
@@ -100,10 +101,15 @@ jobs:
 
     - name: Check Files1
       run: |
-        cd /opt/imgs/
+        cd /opt
         ls
 
     - name: Check Files2
+      run: |
+        cd /opt/imgs
+        ls
+
+    - name: Check Files3
       run: |
         cd /opt/openwrt
         ls
