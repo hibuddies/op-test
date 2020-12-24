@@ -75,7 +75,7 @@ jobs:
 #        echo "::set-env name=useVersionInfo::$useVersionInfo"
 #        echo "::set-env name=DATE::$(date "+%Y-%m-%d %H:%M:%S")"
 
-    - name: Download and Copy files
+    - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
         cd /opt
@@ -114,12 +114,16 @@ jobs:
         cd /opt/openwrt
         ls
 
-    - name: Build firmware
-      id: build
+    - name: autoVersion
       run: |
         cd /opt/openwrt
         chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
         sudo $GITHUB_WORKSPACE/$Update_Ver_SH
+
+    - name: Build firmware
+      id: build
+      run: |
+        cd /opt/openwrt
         #  sudo ./mk_beikeyun_opimg_sfe.sh
         sudo ./mk_s905x3_opimg_sfe.sh
         sudo ./mk_n1_opimg_sfe.sh
