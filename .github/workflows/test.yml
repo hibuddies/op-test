@@ -95,7 +95,7 @@ jobs:
         cd /opt/imgs/
         ls
 
-      - name: Check Files2
+    - name: Check Files2
       run: |
         cd /opt/openwrt
         ls
