@@ -109,6 +109,8 @@ jobs:
       id: build
       run: |
         cd /opt/openwrt
+        sudo cp mk_n1_opimg.sh mk_n1_opimg_sfe.sh
+        sudo cp mk_beikeyun_opimg.sh mk_beikeyun_opimg_sfe.sh
         chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
         sudo $GITHUB_WORKSPACE/$Update_Ver_SH
         chmod +x *.sh
