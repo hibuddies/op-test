@@ -85,9 +85,9 @@ jobs:
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         #sudo xz -d Armbian*Beike*\+\.img\.xz
-        sudo xz -d Armbian*Beike*\+o*
+        #sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
+        #sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
         sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
@@ -132,12 +132,12 @@ jobs:
     - name: copy update files
       run: |
         cd /opt/openwrt
-        #sudo cp files/update-beikeyun-openwrt.sh tmp
-        #sudo cp files/update-l1pro-openwrt.sh tmp
-        #sudo cp files/update-to-emmc.sh tmp
-        #sudo cp files/s905x3/update-s905x3-openwrt.sh tmp
-        #sudo cp files/s922x/update-s922x-openwrt.sh tmp
-        #sudo cp files/update-vplus-openwrt.sh tmp
+        #sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
+        #sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
+        #sudo cp files/update-to-emmc.sh tmp/z-update-to-emmc.sh
+        #sudo cp files/s905x3/update-s905x3-openwrt.sh tmp/z-update-s905x3-openwrt.sh
+        #sudo cp files/s922x/update-s922x-openwrt.sh tmp/z-update-s922x-openwrt.sh
+        #sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
 
     - name: Check Files3
       run: |
