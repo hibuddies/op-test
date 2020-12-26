@@ -127,6 +127,7 @@ jobs:
         #sudo ./mk_s922x_opimg.sh
         #sudo ./mk_s922x_opimg_sfe.sh
         #sudo ./n1-to-vplus.sh
+        #sudo ./n1-to-vplus_sfe.sh
         echo "::set-output name=status::success"
 
     - name: copy update files
