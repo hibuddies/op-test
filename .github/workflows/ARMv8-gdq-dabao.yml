@@ -117,6 +117,7 @@ jobs:
       id: build
       run: |
         cd /opt/openwrt
+        sudo chmod +x *.sh
         #sudo ./mk_beikeyun_opimg.sh
         #sudo ./mk_l1pro_opimg.sh
         #sudo ./mk_n1_opimg.sh
