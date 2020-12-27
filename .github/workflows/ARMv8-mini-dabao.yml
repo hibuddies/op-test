@@ -175,9 +175,9 @@ jobs:
           Openwrt🚀(注:+o版为flowoffload加速,+版为sfe加速)
         artifacts: ${{ env.FIRMWARE }}/*
 
-#    - name: Telegram notification
-#      if: steps.xz.outputs.status == 'success' && !cancelled()
-#      run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=${{ env.FILE_NAME }}打包完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+    - name: Telegram notification
+      if: steps.xz.outputs.status == 'success' && !cancelled()
+      run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=${{ env.FILE_NAME }}打包完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
 
 #    - name: WeChat notification
 #      if: steps.organize.outputs.status == 'success' && !cancelled()
