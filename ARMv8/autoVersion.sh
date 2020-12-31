@@ -13,6 +13,7 @@ sed -i "s/OPENWRT_VER=.*/OPENWRT_VER=\"$OpVersion\"/" /opt/openwrt/mk_s905x3_opi
 sed -i "s/OPENWRT_VER=.*/OPENWRT_VER=\"$OpVersion\"/" /opt/openwrt/mk_s922x_opimg.sh
 sed -i "s/OPENWRT_VER=.*/OPENWRT_VER=\"$OpVersion\"/" /opt/openwrt/mk_s922x_opimg_sfe.sh
 sed -i "s/OPENWRT_VER=.*/OPENWRT_VER=\"$OpVersion\"/" /opt/openwrt/n1-to-vplus.sh
+sed -i "s/OPENWRT_VER=.*/OPENWRT_VER=\"$OpVersion\"/" /opt/openwrt/n1-to-vplus_sfe.sh
 
 # 修改sfe打包脚本内底包名字
 #sed -i "s/OPWRT_ROOTFS_GZ=.*/OPWRT_ROOTFS_GZ=\"$\{PWD}\/sfe-\openwrt-armvirt-64-default-rootfs.tar.gz\"/" /opt/openwrt/mk_beikeyun_opimg_sfe.sh
