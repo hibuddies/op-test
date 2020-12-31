@@ -87,9 +87,9 @@ jobs:
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*Aml*\+\.img\.xz
-        #sudo xz -d Armbian*Aml*\+o*
+        sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
-        sudo xz -d Armbian*L1*\+o*
+        #sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
         cd /opt/openwrt
         sudo rm -rf openwrt-armvirt-64-*
@@ -120,10 +120,10 @@ jobs:
         sudo chmod +x *.sh
         #sudo ./mk_beikeyun_opimg.sh
         #sudo ./mk_l1pro_opimg.sh
-        #sudo ./mk_n1_opimg.sh
-        #sudo ./mk_n1_opimg_sfe.sh
+        sudo ./mk_n1_opimg.sh
+        sudo ./mk_n1_opimg_sfe.sh
         #sudo ./mk_s905x3_opimg.sh
-        sudo ./mk_s905x3_opimg_sfe.sh
+        #sudo ./mk_s905x3_opimg_sfe.sh
         #sudo ./mk_s922x_opimg.sh
         #sudo ./mk_s922x_opimg_sfe.sh
         #sudo ./n1-to-vplus.sh
