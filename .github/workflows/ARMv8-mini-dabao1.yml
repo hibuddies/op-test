@@ -97,11 +97,11 @@ jobs:
         sudo rm -rf /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz
         wget $dibao_o
         cp /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz /opt/openwrt/openwrt-armvirt-64-default-rootfs.tar.gz
-        wget $a_beikeyun_o
+        #wget $a_beikeyun_o
         wget $a_s9xxx_sfe
         wget $a_s9xxx_o
         #  cp /opt/dl/$ARMBIAN_BEIKEYUN_S /opt/imgs/$ARMBIAN_BEIKEYUN_S
-        cp /opt/dl/$ARMBIAN_BEIKEYUN_O /opt/imgs/$ARMBIAN_BEIKEYUN_O
+        #cp /opt/dl/$ARMBIAN_BEIKEYUN_O /opt/imgs/$ARMBIAN_BEIKEYUN_O
         cp /opt/dl/$ARMBIAN_S9XXX_S /opt/imgs/$ARMBIAN_S9XXX_S
         cp /opt/dl/$ARMBIAN_S9XXX_O /opt/imgs/$ARMBIAN_S9XXX_O
 
@@ -141,16 +141,16 @@ jobs:
         cd /opt/imgs        
         #  sudo xz -d $ARMBIAN_BEIKEYUN_S
         sudo xz -d $ARMBIAN_S9XXX_S
-        sudo xz -d $ARMBIAN_BEIKEYUN_O
+        #sudo xz -d $ARMBIAN_BEIKEYUN_O
         sudo xz -d $ARMBIAN_S9XXX_O
         sudo chmod  -R 777 /opt
         cd /opt/openwrt
         chmod +x *.sh
         #  sudo bash mk_beikeyun_opimg_sfe.sh
-        sudo bash mk_s905x3_opimg_sfe.sh
+        #sudo bash mk_s905x3_opimg_sfe.sh
         sudo bash mk_n1_opimg_sfe.sh
-        sudo bash mk_beikeyun_opimg.sh
-        sudo bash mk_s905x3_opimg.sh
+        #sudo bash mk_beikeyun_opimg.sh
+        #sudo bash mk_s905x3_opimg.sh
         sudo bash mk_n1_opimg.sh
 
     - name: xz-z
