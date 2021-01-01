@@ -159,10 +159,10 @@ jobs:
         sudo chmod  -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp 
         #  sudo xz -z $OPENWRT_BEIKEYUN_S
-        sudo xz -z $OPENWRT_S905x3_S
+        #sudo xz -z $OPENWRT_S905x3_S
         sudo xz -z $OPENWRT_N1_S
-        sudo xz -z $OPENWRT_BEIKEYUN_O
-        sudo xz -z $OPENWRT_S905x3_O
+        #sudo xz -z $OPENWRT_BEIKEYUN_O
+        #sudo xz -z $OPENWRT_S905x3_O
         sudo xz -z $OPENWRT_N1_O
         echo "::set-output name=status::success"
 
