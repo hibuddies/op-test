@@ -95,15 +95,15 @@ jobs:
         wget $dibao_sfe
         cp /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz /opt/openwrt/sfe-openwrt-armvirt-64-default-rootfs.tar.gz
         sudo rm -rf /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz
-        wget $dibao_o
-        cp /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz /opt/openwrt/openwrt-armvirt-64-default-rootfs.tar.gz
-        wget $a_beikeyun_o
+        #wget $dibao_o
+        #cp /opt/dl/openwrt-armvirt-64-default-rootfs.tar.gz /opt/openwrt/openwrt-armvirt-64-default-rootfs.tar.gz
+        #wget $a_beikeyun_o
         wget $a_s9xxx_sfe
-        wget $a_s9xxx_o
+        #wget $a_s9xxx_o
         #  cp /opt/dl/$ARMBIAN_BEIKEYUN_S /opt/imgs/$ARMBIAN_BEIKEYUN_S
-        cp /opt/dl/$ARMBIAN_BEIKEYUN_O /opt/imgs/$ARMBIAN_BEIKEYUN_O
+        #cp /opt/dl/$ARMBIAN_BEIKEYUN_O /opt/imgs/$ARMBIAN_BEIKEYUN_O
         cp /opt/dl/$ARMBIAN_S9XXX_S /opt/imgs/$ARMBIAN_S9XXX_S
-        cp /opt/dl/$ARMBIAN_S9XXX_O /opt/imgs/$ARMBIAN_S9XXX_O
+        #cp /opt/dl/$ARMBIAN_S9XXX_O /opt/imgs/$ARMBIAN_S9XXX_O
 
         
     - name: Check Files1
@@ -141,17 +141,17 @@ jobs:
         cd /opt/imgs        
         #  sudo xz -d $ARMBIAN_BEIKEYUN_S
         sudo xz -d $ARMBIAN_S9XXX_S
-        sudo xz -d $ARMBIAN_BEIKEYUN_O
-        sudo xz -d $ARMBIAN_S9XXX_O
+        #sudo xz -d $ARMBIAN_BEIKEYUN_O
+        #sudo xz -d $ARMBIAN_S9XXX_O
         sudo chmod  -R 777 /opt
         cd /opt/openwrt
         chmod +x *.sh
         #  sudo bash mk_beikeyun_opimg_sfe.sh
-        sudo bash mk_s905x3_opimg_sfe.sh
+        #sudo bash mk_s905x3_opimg_sfe.sh
         sudo bash mk_n1_opimg_sfe.sh
-        sudo bash mk_beikeyun_opimg.sh
-        sudo bash mk_s905x3_opimg.sh
-        sudo bash mk_n1_opimg.sh
+        #sudo bash mk_beikeyun_opimg.sh
+        #sudo bash mk_s905x3_opimg.sh
+        #sudo bash mk_n1_opimg.sh
 
     - name: xz-z
       id: xz
@@ -159,11 +159,11 @@ jobs:
         sudo chmod  -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp 
         #  sudo xz -z $OPENWRT_BEIKEYUN_S
-        sudo xz -z $OPENWRT_S905x3_S
+        #sudo xz -z $OPENWRT_S905x3_S
         sudo xz -z $OPENWRT_N1_S
-        sudo xz -z $OPENWRT_BEIKEYUN_O
-        sudo xz -z $OPENWRT_S905x3_O
-        sudo xz -z $OPENWRT_N1_O
+        #sudo xz -z $OPENWRT_BEIKEYUN_O
+        #sudo xz -z $OPENWRT_S905x3_O
+        #sudo xz -z $OPENWRT_N1_O
         echo "::set-output name=status::success"
 
    # - name: Check space usage
