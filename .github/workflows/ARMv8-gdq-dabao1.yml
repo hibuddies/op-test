@@ -174,7 +174,7 @@ jobs:
       if: steps.xz.outputs.status == 'success'  &&  env.RELEASE == 'true' && !cancelled()
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.DATE }} / Openwrt-50+和50+o高大全版
+        name: ${{ env.DATE }} Openwrt for ARMv8 高大全版
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: main
