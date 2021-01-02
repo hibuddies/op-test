@@ -15,7 +15,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: HC5761A/op.config
+  CONFIG_FILE: HC5761A/HC5761A.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -130,11 +130,11 @@ jobs:
         cd $GITHUB_WORKSPACE
         sudo tar -zcvf AllPackages.tar.gz openwrt/bin/packages
         cp AllPackages.tar.gz openwrt/bin/targets/*/*
-        cp openwrt/.config openwrt/op.config
-        cp openwrt/op.config openwrt/bin/targets/*/*
+        cp openwrt/.config openwrt/HC5761A.config
+        cp openwrt/HC5761A.config openwrt/bin/targets/*/*
         cd openwrt/bin/targets/*/*
         ls
-        rm -rf packages config.buildinfo feeds.buildinfo sha256sums version.buildinfo openwrt-ramips-mt7620-hiwifi_hc5761.manifest
+        rm -rf packages config.buildinfo feeds.buildinfo sha256sums version.buildinfo openwrt-ramips-mt7620-hiwifi_hc5761-initramfs-kernel.bin openwrt-ramips-mt7620-hiwifi_hc5761.manifest
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
