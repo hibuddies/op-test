@@ -82,16 +82,8 @@ jobs:
         sudo chmod  -R 777 /opt/dl
         cd /opt
         mkdir imgs
-        
-    - uses: actions/cache@v2
-      id: opwenwrtcache
-      with:
-        path: |
-          /opt/dl
-        key: ${{ runner.os }}-opwenwrt-${{ env.FLIPPY_NAME }}
       
     - name: Download and organize files
-      #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
         cd /opt/openwrt
         sudo rm -rf Armbian_*
