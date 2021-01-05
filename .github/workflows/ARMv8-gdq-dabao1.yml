@@ -153,6 +153,11 @@ jobs:
         #sudo bash mk_s905x3_opimg.sh
         #sudo bash mk_n1_opimg.sh
 
+    - name: Check Files4
+      run: |
+        cd /opt/openwrt/tmp
+        ls
+
     - name: xz-z
       id: xz
       run: |
@@ -166,6 +171,11 @@ jobs:
         #sudo xz -z $OPENWRT_N1_O
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
+
+    - name: Check Files5
+      run: |
+        cd /opt/openwrt/tmp
+        ls
 
    # - name: Check space usage
     #  if: (!cancelled())
