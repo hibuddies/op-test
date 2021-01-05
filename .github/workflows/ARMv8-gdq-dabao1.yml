@@ -168,10 +168,10 @@ jobs:
           贝壳云和S905×3在线升级方法：
              1. 贝壳云：cd /mnt/mmcblk0p4
                S903×3：cd /mnt/mmcblk2p4
-             2. wget 下面的升级脚本链接
+             2. wget 升级脚本链接
              3. wget 固件链接
              4. chmod +x *.sh
-             5. ./脚本名字 img固件名
+             5. ./升级脚本名字 img固件名
         artifacts: ${{ env.FIRMWARE }}/*
         
 #    - name: Upload firmware to WeTransfer
