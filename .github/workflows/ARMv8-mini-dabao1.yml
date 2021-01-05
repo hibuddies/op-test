@@ -14,116 +14,139 @@ on:
         default: 6
  # schedule:
   #  - cron: 0 22 * * *
-      
+
 env:
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: ARMv8/gdq-sfe.config
+  DIY_P1_SH: diy-part1.sh
+  DIY_P2_SH: diy-part2.sh
+  Update_Ver_SH: ARMv8/autoVersion.sh
+  Get_Imgs_SH: ARMv8/getImgs.sh
+  UPLOAD_BIN_DIR: false
+  UPLOAD_FIRMWARE: false
   UPLOAD_COWTRANSFER: false
-  RELEASE: true
+  UPLOAD_WETRANSFER: false
   TZ: Asia/Shanghai
   FILE_NAME: Z-ARMv8-mini
-
+ # PRODUCT_NAME: ARMv8_SFE
 jobs:
   build:
-    runs-on: ubuntu-20.04
-    name: Build for ${{ matrix.flippy_name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - flippy_name: 50
-       #     armbian_beikeyun_s: Armbian_20.10_Beikeyun_buster_5.9.8-flippy-49+.img.xz
-            armbian_beikeyun_o: Armbian_20.10_Beikeyun_buster_5.4.83-flippy-50+o.img.xz
-            armbian_s9xxx_s: Armbian_20.10_Aml-s9xxx_buster_5.9.14-flippy-50+.img.xz
-            armbian_s9xxx_o: Armbian_20.10_Aml-s9xxx_buster_5.4.83-flippy-50+o.img.xz
-       #     openwrt_beikeyun_+: Beikeyun_Openwrt_R20.12.12_k5.9.8-flippy-49+.img
-            openwrt_beikeyun_o: Beikeyun_Openwrt_R20.12.12_k5.4.83-flippy-50+o.img
-            openwrt_s905x3_s: S905x3_Openwrt_R20.12.12_k5.9.14-flippy-50+.img
-            openwrt_s905x3_o: S905x3_Openwrt_R20.12.12_k5.4.83-flippy-50+o.img
-            openwrt_n1_s: N1_Openwrt_R20.12.12_k5.9.14-flippy-50+.img
-            openwrt_n1_o: N1_Openwrt_R20.12.12_k5.4.83-flippy-50+o.img
-    env:
-      FLIPPY_NAME: ${{ matrix.flippy_name }}
-     # ARMBIAN_BEIKEYUN_S: ${{ matrix.armbian_beikeyun_s }}   
-      ARMBIAN_BEIKEYUN_O: ${{ matrix.armbian_beikeyun_o }}
-      ARMBIAN_S9XXX_S: ${{ matrix.armbian_s9xxx_s }}
-      ARMBIAN_S9XXX_O: ${{ matrix.armbian_s9xxx_o }}
-     # OPENWRT_BEIKEYUN_S: ${{ matrix.openwrt_beikeyun_+ }}
-      OPENWRT_BEIKEYUN_O: ${{ matrix.openwrt_beikeyun_o }}
-      OPENWRT_S905x3_S: ${{ matrix.openwrt_s905x3_s }}
-      OPENWRT_S905x3_O: ${{ matrix.openwrt_s905x3_o }}
-      OPENWRT_N1_S: ${{ matrix.openwrt_n1_s }}
-      OPENWRT_N1_O: ${{ matrix.openwrt_n1_o }}
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@main
+    #- name: WeChat notification
+    #  run: curl https://sc.ftqq.com/${{ secrets.ServerChan }}.send?text=${{ env.FILE_NAME }}开始编译
       
+    - name: Checkout
+      uses: actions/checkout@master
+
     - name: Initialization environment
-      run: |     
-        if [[ $FLIPPY_NAME = "50" ]]; 
-        then
-          echo "set the flippy 50"
-         # echo "a_beikeyun_sfe=${{ secrets.a_beikeyun_sfe }}"  >> $GITHUB_ENV
-          echo "a_beikeyun_o=${{ secrets.a_beikeyun_o }}"  >> $GITHUB_ENV
-          echo "a_s9xxx_sfe=${{ secrets.a_s9xxx_sfe }}"  >> $GITHUB_ENV
-          echo "a_s9xxx_o=${{ secrets.a_s9xxx_o }}"  >> $GITHUB_ENV
-          echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
-          echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
-        fi
-        sudo -E apt-get -qq update
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -qq install xz-utils btrfs-progs gawk zip unzip curl dosfstools  uuid-runtime time
-        sudo -E apt-get -qq install git  git-core
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+        sudo -E apt-get -qq install rename
+        sudo -E apt-get -qq install time
+        sudo -E apt-get -qq install sshpass
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")"  >> $GITHUB_ENV
-        sudo chmod  -R 777 /opt
-        cp -r ${FLIPPY_NAME}/opt/* /opt
-        test -d /opt/dl || mkdir -p /opt/dl
-        sudo chmod  -R 777 /opt/dl
-        cd /opt
-        mkdir imgs
-      
-    - name: Download and organize files
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+        echo "mk_scr=${{ secrets.mk_scr }}"  >> $GITHUB_ENV
+        #echo "a_beikeyun_sfe=${{ secrets.a_beikeyun_sfe }}"  >> $GITHUB_ENV
+        echo "a_beikeyun_o=${{ secrets.a_beikeyun_o }}"  >> $GITHUB_ENV
+        echo "a_s9xxx_sfe=${{ secrets.a_s9xxx_sfe }}"  >> $GITHUB_ENV
+        echo "a_s9xxx_o=${{ secrets.a_s9xxx_o }}"  >> $GITHUB_ENV
+        echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
+        echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
+
+    - name: Clone source code
+      working-directory: /workdir
       run: |
-        cd /opt/openwrt
+        df -hT $PWD
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        useVersionInfo=$(git show -s --date=short --format="Author: %an<br/>date: %cd<br/>commit: %s<br/>commit hash: %H")
+        echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+#        echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
+#        echo "::set-env name=useVersionInfo::$useVersionInfo"
+#        echo "::set-env name=DATE::$(date "+%Y-%m-%d %H:%M:%S")"
+
+    - name: Download and organize files
+      #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
+      run: |
+        cd /opt
         sudo rm -rf Armbian_*
-        sudo rm -rf openwrt-armvirt-64-* sfe-openwrt-armvirt-64-*
-        wget $dibao_sfe
-        mv /opt/openwrt/openwrt-armvirt-64-default-rootfs.tar.gz /opt/openwrt/sfe-openwrt-armvirt-64-default-rootfs.tar.gz
-        #wget $dibao_o
+        wget $mk_scr
+        #wget $a_beikeyun_sfe
         #wget $a_beikeyun_o
         wget $a_s9xxx_sfe
-        #wget $a_s9xxx_o
-        sudo rm -rf /opt/imgs/*.xz
-        sudo rm -rf /opt/imgs/*.img
-        mv /opt/openwrt/*.xz /opt/imgs/
-        cd /opt/imgs
-        #sudo xz -d $ARMBIAN_BEIKEYUN_S
-        sudo xz -d $ARMBIAN_S9XXX_S
-        #sudo xz -d $ARMBIAN_BEIKEYUN_O
-        #sudo xz -d $ARMBIAN_S9XXX_O
-        sudo chmod  -R 777 /opt
+        #wget $a_s9xxx_o        
+        sudo tar xvzf *.tar.gz
+        sudo mkdir imgs
+        #sudo xz -d Armbian*Beike*\+\.img\.xz
+        #sudo xz -d Armbian*Beike*\+o*
+        sudo xz -d Armbian*Aml*\+\.img\.xz
+        #sudo xz -d Armbian*Aml*\+o*
+        #sudo xz -d Armbian*L1*\+\.img\.xz
+        #sudo xz -d Armbian*L1*\+o*
+        sudo mv *.img imgs
+        cd /opt/openwrt
+        sudo rm -rf openwrt-armvirt-64-*
+        sudo wget $dibao_sfe
+        sudo mv openwrt-armvirt-64-default-rootfs.tar.gz sfe-openwrt-armvirt-64-default-rootfs.tar.gz
+        sudo wget $dibao_o
+
+    - name: autoVersion
+      run: |
+        cd /opt/openwrt
+        chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
+        sudo $GITHUB_WORKSPACE/$Update_Ver_SH
 
     - name: Check Files1
       run: |
-        cd /opt/openwrt/
+        cd /opt/imgs
         ls
 
     - name: Check Files2
       run: |
-        cd /opt/imgs/
+        cd /opt/openwrt
         ls
-              
-    - name: build img
+
+    - name: Build firmware
+      id: build
       run: |
         cd /opt/openwrt
-        chmod +x *.sh
-        #sudo bash mk_beikeyun_opimg_sfe.sh
-        #sudo bash mk_s905x3_opimg_sfe.sh
-        sudo bash mk_n1_opimg_sfe.sh
-        #sudo bash mk_beikeyun_opimg.sh
-        #sudo bash mk_s905x3_opimg.sh
-        #sudo bash mk_n1_opimg.sh
+        sudo chmod +x *.sh
+        #sudo ./mk_beikeyun_opimg.sh
+        #sudo ./mk_l1pro_opimg.sh
+        #sudo ./mk_n1_opimg.sh
+        sudo ./mk_n1_opimg_sfe.sh
+        #sudo ./mk_s905x3_opimg.sh
+        #sudo ./mk_s905x3_opimg_sfe.sh
+        #sudo ./mk_s922x_opimg.sh
+        #sudo ./mk_s922x_opimg_sfe.sh
+        #sudo ./n1-to-vplus.sh
+        #sudo ./n1-to-vplus_sfe.sh
+        echo "::set-output name=status::success"
+
+    - name: copy update files
+      run: |
+        cd /opt/openwrt
+        #sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
+        #sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
+        #sudo cp files/update-to-emmc.sh tmp/z-update-to-emmc.sh
+        #sudo cp files/s905x3/update-s905x3-openwrt.sh tmp/z-update-s905x3-openwrt.sh
+        #sudo cp files/s922x/update-s922x-openwrt.sh tmp/z-update-s922x-openwrt.sh
+        #sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
 
     - name: Check Files3
       run: |
@@ -133,14 +156,11 @@ jobs:
     - name: xz-z
       id: xz
       run: |
-        sudo chmod -R 777 /opt/openwrt/tmp
-        cd /opt/openwrt/tmp 
-        #sudo xz -z $OPENWRT_BEIKEYUN_S
-        #sudo xz -z $OPENWRT_S905x3_S
-        #sudo xz -z $OPENWRT_N1_S
-        #sudo xz -z $OPENWRT_BEIKEYUN_O
-        #sudo xz -z $OPENWRT_S905x3_O
-        #sudo xz -z $OPENWRT_N1_O
+        sudo chmod  -R 777 /opt/openwrt/tmp
+        cd /opt/openwrt/tmp
+        sudo rm -rf *.xz
+        #sudo xz -z *.img
+        #sudo rm btld-rk3328.bin
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
@@ -149,19 +169,15 @@ jobs:
         cd /opt/openwrt/tmp
         ls
 
-#    - name: Check space usage
-#      if: (!cancelled())
-#      run: df -hT
-
     - name: Create release
-      if: steps.xz.outputs.status == 'success'  &&  env.RELEASE == 'true' && !cancelled()
+      id: release
       uses: ncipollo/release-action@v1
       with:
         name: ${{ env.DATE }} Openwrt for ARMv8 精简版
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: main
-        token: ${{ secrets.RELEASES_TOKEN   }}
+        token: ${{ secrets.RELEASES_TOKEN }}
         body: |
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:+o版为flowoffload加速,+版为sfe加速)
@@ -173,25 +189,52 @@ jobs:
              4. chmod +x *.sh
              5. ./升级脚本名字 img固件名
         artifacts: ${{ env.FIRMWARE }}/*
+
+    - name: Telegram notification
+      if: steps.xz.outputs.status == 'success' && !cancelled()
+      run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=${{ env.FILE_NAME }}打包完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+
+#    - name: WeChat notification
+#      if: steps.organize.outputs.status == 'success' && !cancelled()
+#      run: curl https://sc.ftqq.com/${{ secrets.ServerChan }}.send?text=${{ env.PRODUCT_NAME }}打包完成
+
+#     - name: Upload package
+#       id: upload_package
+#       if: steps.organize.outputs.status == 'success' && !cancelled()
+#       run: |
+#         cd /opt/openwrt/tmp/
+#         sudo ${{ secrets.UPLOAD_PACKAGE }}
+#         echo "::set-output name=status::success"
+
+#     - name: WeChat notification
+#       if: steps.upload_package.outputs.status == 'success' && !cancelled()
+#       run: curl https://sc.ftqq.com/${{ secrets.ServerChan }}.send?text=${{ env.PRODUCT_NAME }} Package已上传
+
+    - name: Upload bin directory
+      uses: actions/upload-artifact@master
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      with:
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin/targets/*/*/bin.tar.gz
+
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@master
+      if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
+      with:
+        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
+
+    - name: Upload firmware to cowtransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+
+    - name: Upload firmware to WeTransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         
-#    - name: Upload firmware to WeTransfer
-#      if: steps.xz.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
-#      run: |
-#        curl -fsSL git.io/file-transfer | sh
-#        ./transfer cow --block 2621440 -s -p 64 --no-progress /opt/openwrt/tmp/$OPENWRT_BEIKEYUN_S.xz 2>&1 | tee cowtransfer.log
-#        ./transfer cow --block 2621440 -s -p 64 --no-progress /opt/openwrt/tmp/$OPENWRT_S905x3_S.xz 2>&1 | tee cowtransfer.log
-#        ./transfer cow --block 2621440 -s -p 64 --no-progress /opt/openwrt/tmp/$OPENWRT_N1_S.xz 2>&1 | tee cowtransfer.log
-#        ./transfer cow --block 2621440 -s -p 64 --no-progress /opt/openwrt/tmp/$OPENWRT_BEIKEYUN_O.xz 2>&1 | tee cowtransfer.log
-#        ./transfer cow --block 2621440 -s -p 64 --no-progress /opt/openwrt/tmp/$OPENWRT_S905x3_O.xz 2>&1 | tee cowtransfer.log
-#        ./transfer cow --block 2621440 -s -p 64 --no-progress /opt/openwrt/tmp/$OPENWRT_N1_O.xz 2>&1 | tee cowtransfer.log
-#        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-#        echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
-
-#    - name: Remove old Releases
-#      uses: dev-drprasad/delete-older-releases@v0.1.0
-#      with:
-#        keep_latest: 8
-#        delete_tags: true
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.RELEASES_TOKEN }}  
-
