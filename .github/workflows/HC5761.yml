@@ -25,6 +25,7 @@ env:
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
   FILE_NAME: op
+  FILE_NAME1: HC5761
   PRODUCT_NAME: op
 
 jobs:
@@ -173,4 +174,4 @@ jobs:
 
     - name: Telegram notification
       if: steps.organize.outputs.status == 'success' && !cancelled()
-      run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=${{ env.FILE_NAME }}编译完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+      run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=${{ env.FILE_NAME1 }}编译完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
