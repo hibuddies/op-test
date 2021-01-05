@@ -155,7 +155,7 @@ jobs:
         sudo chmod  -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp
         sudo rm -rf *.xz
-        sudo xz -z *.img
+        #sudo xz -z *.img
         sudo rm btld-rk3328.bin
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
