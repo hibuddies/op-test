@@ -94,9 +94,10 @@ jobs:
         #wget $a_beikeyun_o
         wget $a_s9xxx_sfe
         #wget $a_s9xxx_o
-        sudo rm -rf /opt/openwrt/tmp/*.xz
-        sudo rm -rf /opt/openwrt/tmp/*.img
+        sudo rm -rf /opt/imgs/*.xz
+        sudo rm -rf /opt/imgs/*.img
         mv /opt/openwrt/*.xz /opt/imgs/
+        cd /opt/imgs
         #sudo xz -d $ARMBIAN_BEIKEYUN_S
         sudo xz -d $ARMBIAN_S9XXX_S
         #sudo xz -d $ARMBIAN_BEIKEYUN_O
@@ -132,7 +133,7 @@ jobs:
     - name: xz-z
       id: xz
       run: |
-        sudo chmod  -R 777 /opt/openwrt/tmp
+        sudo chmod -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp 
         #sudo xz -z $OPENWRT_BEIKEYUN_S
         #sudo xz -z $OPENWRT_S905x3_S
