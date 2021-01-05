@@ -161,7 +161,7 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.DATE }}
+        name: ${{ env.DATE }} Openwrt for HC5761
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: main
