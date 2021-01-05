@@ -164,6 +164,7 @@ jobs:
         #sudo xz -z $OPENWRT_BEIKEYUN_O
         #sudo xz -z $OPENWRT_S905x3_O
         #sudo xz -z $OPENWRT_N1_O
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
    # - name: Check space usage
@@ -182,7 +183,7 @@ jobs:
         body: |
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:+o版为flowoffload加速,+版为sfe加速)
-        artifacts: "/opt/openwrt/tmp/*.xz"
+        artifacts: ${{ env.FIRMWARE }}/*
         
     - name: Upload firmware to WeTransfer
       if: steps.xz.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
