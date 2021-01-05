@@ -139,7 +139,7 @@ jobs:
         cd /opt/openwrt
         sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
         #sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
-        #sudo cp files/update-to-emmc.sh tmp/z-update-to-emmc.sh
+        sudo cp files/update-to-emmc.sh tmp/z-update-to-emmc.sh
         sudo cp files/s905x3/update-s905x3-openwrt.sh tmp/z-update-s905x3-openwrt.sh
         #sudo cp files/s922x/update-s922x-openwrt.sh tmp/z-update-s922x-openwrt.sh
         #sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
