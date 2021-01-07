@@ -51,7 +51,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-  .     echo "mk_scr=${{ secrets.mk_scr }}"  >> $GITHUB_ENV
+        echo "mk_scr=${{ secrets.mk_scr }}"  >> $GITHUB_ENV
         #echo "a_beikeyun_sfe=${{ secrets.a_beikeyun_sfe }}"  >> $GITHUB_ENV
         echo "a_beikeyun_o=${{ secrets.a_beikeyun_o }}"  >> $GITHUB_ENV
         echo "a_s9xxx_sfe=${{ secrets.a_s9xxx_sfe }}"  >> $GITHUB_ENV
