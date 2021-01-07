@@ -262,5 +262,5 @@ jobs:
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Telegram notification
-      if: steps.organize.outputs.status == 'success' && !cancelled()
+      if: steps.xz.outputs.status == 'success' && !cancelled()
       run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=${{ env.FILE_NAME }}编译完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
