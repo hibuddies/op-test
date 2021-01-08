@@ -1,4 +1,4 @@
-name: all-in-one1
+name: all-in-one12
 
 on:
   repository_dispatch:
