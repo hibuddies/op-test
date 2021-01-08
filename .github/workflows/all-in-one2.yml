@@ -213,8 +213,9 @@ jobs:
         #sudo cp *.xz /test
         cd /opt
         sudo rm -rf openwrt
+        sudo rm -rf imgs
         sudo rm -rf *.xz
-        sudo rm -rf *.img
+        sudo rm -rf *.tar.gz
         cd /test
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
 
