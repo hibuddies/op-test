@@ -278,7 +278,9 @@ jobs:
         #sudo xz -z *.img
         #sudo rm btld-rk3328.bin
         sudo cp *.img /test
-        sudo cp *.xz /test
+        #sudo cp *.xz /test
+        cd /test
+        #sudo xz -z *.img
         echo "::set-output name=status::success"
 
     - name: Check Files
