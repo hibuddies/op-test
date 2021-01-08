@@ -161,8 +161,7 @@ jobs:
         sudo mv *.img imgs
         cd /opt/openwrt
         sudo rm -rf openwrt-armvirt-64-*
-        cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*/*
-        cp *.tar.gz /opt/openwrt/sfe-openwrt-armvirt-64-default-rootfs.tar.gz
+        sudo cp $GITHUB_WORKSPACE/openwrt/bin/targets/*/*/*.tar.gz sfe-openwrt-armvirt-64-default-rootfs.tar.gz
         #sudo wget $dibao_sfe
         #sudo mv openwrt-armvirt-64-default-rootfs.tar.gz sfe-openwrt-armvirt-64-default-rootfs.tar.gz
         #sudo wget $dibao_o
