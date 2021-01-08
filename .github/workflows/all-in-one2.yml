@@ -210,11 +210,11 @@ jobs:
       run: |
         cd /opt/openwrt/tmp
         sudo cp *.img /test
-        sudo cp *.xz /test
+        #sudo cp *.xz /test
         cd /opt
         sudo rm -rf openwrt
         sudo rm -rf *.xz
-        sudu rm -rf *.img
+        sudo rm -rf *.img
         cd /test
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
 
