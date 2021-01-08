@@ -147,8 +147,8 @@ jobs:
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
-        sudo xz -d Armbian*Beike*\+\.img\.xz
-        #sudo xz -d Armbian*Beike*\+o*
+        #sudo xz -d Armbian*Beike*\+\.img\.xz
+        sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*Aml*\+\.img\.xz
         sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
