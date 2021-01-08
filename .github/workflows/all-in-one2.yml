@@ -216,7 +216,7 @@ jobs:
         sudo rm -rf imgs
         sudo rm -rf *.xz
         sudo rm -rf *.tar.gz
-        ls -a
+        ls -la
         cd /test
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
 
