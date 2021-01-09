@@ -92,10 +92,17 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         #sed -i 's/OpenWrt/MRG AutoBuild ${{ env.DATE1 }} @ OpenWrt/g' package/lean/default-settings/files/zzz-default-settings
+
+    - name: View version
+      run: |
+        echo "$(cat /workdir/openwrt/package/lean/default-settings/files/zzz-default-settings)" | grep -Po "DISTRIB_REVISION=\'\K[^\']*"
         
-#     - name: SSH connection to Actions
-#       uses: P3TERX/debugger-action@master
-#       if: env.SSH_ACTIONS == 'true' || contains(github.event.action, 'ssh')
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Download package
       id: package
@@ -134,6 +141,7 @@ jobs:
         tar -zcvf AllPackages.tar.gz openwrt/bin/packages
         mv AllPackages.tar.gz openwrt/bin/targets/*/*
         cd openwrt/bin/targets/*/*
+        ls -a
         rm -rf packages config.buildinfo feeds.buildinfo sha256sums version.buildinfo *.manifest
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
