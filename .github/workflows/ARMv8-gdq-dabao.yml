@@ -81,7 +81,7 @@ jobs:
       run: |
         cd /opt
         sudo rm -rf Armbian_*
-        sudo sudo $getimgs
+        sudo wget $getimgs
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         #sudo xz -d Armbian*Beike*\+\.img\.xz
