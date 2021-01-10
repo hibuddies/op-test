@@ -60,6 +60,8 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
         echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
         echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
+        echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
+        sudo wget $getimgs $GITHUB_WORKSPACE/ARMv8
 
     - name: Clone source code
       working-directory: /workdir
@@ -71,7 +73,6 @@ jobs:
         useVersionInfo=$(git show -s --date=short --format="Author: %an<br/>date: %cd<br/>commit: %s<br/>commit hash: %H")
         echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
-        echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
 #        echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
 #        echo "::set-env name=useVersionInfo::$useVersionInfo"
 #        echo "::set-env name=DATE::$(date "+%Y-%m-%d %H:%M:%S")"
@@ -81,7 +82,8 @@ jobs:
       run: |
         cd /opt
         sudo rm -rf Armbian_*
-        sudo wget $getimgs
+        sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
+        sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         #sudo xz -d Armbian*Beike*\+\.img\.xz
