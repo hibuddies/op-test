@@ -58,6 +58,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
+        echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
         echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
         echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
 
@@ -80,8 +81,7 @@ jobs:
       run: |
         cd /opt
         sudo rm -rf Armbian_*
-        chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
+        sudo $getimgs
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         #sudo xz -d Armbian*Beike*\+\.img\.xz
