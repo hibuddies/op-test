@@ -83,7 +83,7 @@ jobs:
         sudo wget $getimgs
         cd /opt
         sudo rm -rf Armbian_*
-        chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
+        sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
