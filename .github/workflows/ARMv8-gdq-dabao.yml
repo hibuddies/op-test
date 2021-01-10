@@ -61,7 +61,7 @@ jobs:
         echo "dibao_sfe=${{ secrets.dibao_gdq_sfe }}"  >> $GITHUB_ENV
         echo "dibao_o=${{ secrets.dibao_gdq_o }}"  >> $GITHUB_ENV
         echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
-        sudo wget -P $getimgs $GITHUB_WORKSPACE/ARMv8
+        sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
 
     - name: Clone source code
       working-directory: /workdir
