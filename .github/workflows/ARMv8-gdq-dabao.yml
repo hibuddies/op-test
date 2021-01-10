@@ -23,7 +23,7 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   Update_Ver_SH: ARMv8/autoVersion.sh
-  Get_Imgs_SH: ARMv8/getImgs.sh
+  #Get_Imgs_SH: ARMv8/getImgs.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
   UPLOAD_COWTRANSFER: false
@@ -79,9 +79,12 @@ jobs:
     - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
+        cd $GITHUB_WORKSPACE
+        sudo $getimgs
         cd /opt
         sudo rm -rf Armbian_*
-        sudo wget $getimgs
+        chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
+        sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         #sudo xz -d Armbian*Beike*\+\.img\.xz
