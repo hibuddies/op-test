@@ -79,7 +79,7 @@ jobs:
     - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
-        cd $GITHUB_WORKSPACE
+        cd $GITHUB_WORKSPACE/ARMv8
         sudo wget $getimgs
         cd /opt
         sudo rm -rf Armbian_*
