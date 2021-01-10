@@ -80,7 +80,7 @@ jobs:
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
         cd $GITHUB_WORKSPACE
-        sudo $getimgs
+        sudo wget $getimgs
         cd /opt
         sudo rm -rf Armbian_*
         chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
