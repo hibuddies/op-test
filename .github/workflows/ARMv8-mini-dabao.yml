@@ -49,10 +49,6 @@ jobs:
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        echo "dibao_sfe=${{ secrets.dibao_gdq_sfe }}"  >> $GITHUB_ENV
-        echo "dibao_o=${{ secrets.dibao_gdq_o }}"  >> $GITHUB_ENV
-        echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
-        sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
         sudo -E apt-get -qq install rename
         sudo -E apt-get -qq install time
@@ -62,6 +58,9 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
+        echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
+        echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
+        echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
 
     - name: Clone source code
       working-directory: /workdir
@@ -82,6 +81,7 @@ jobs:
       run: |
         cd /opt
         sudo rm -rf Armbian_*
+        sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
