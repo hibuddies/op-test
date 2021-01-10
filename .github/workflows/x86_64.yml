@@ -24,8 +24,8 @@ env:
   UPLOAD_COWTRANSFER: true
   UPLOAD_WETRANSFER: false
   TZ: Asia/Shanghai
-  FILE_NAME: x86_64
-  PRODUCT_NAME: x86_64
+  FILE_NAME: X86_64
+  PRODUCT_NAME: X86_64
 
 jobs:
   build:
