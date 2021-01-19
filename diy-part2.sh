@@ -18,3 +18,5 @@ git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-ser
 # theme
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
+git clone https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk package/MentoHUST-OpenWrt-ipk
+git clone https://github.com/BoringCat/luci-app-mentohust.git package/luci-app-mentohust
