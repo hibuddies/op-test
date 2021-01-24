@@ -15,7 +15,7 @@ rm -rf package/lean/luci-app-dockerman
 rm -rf package/lean/luci-app-wrtbwmon
 rm -rf package/lean/luci-theme-argon
 #添加额外软件包
-#git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 
 
