@@ -164,12 +164,13 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.DATE }} Openwrt for N1 鉴于N1用户群庞大，特单独开此release
+        name: ${{ env.DATE }} Openwrt for N1
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: main
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
+          ## 鉴于N1用户群庞大，特单独开此release
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:+o版为flowoffload加速,+版为sfe加速)
         artifacts: ${{ env.FIRMWARE }}/*
@@ -310,6 +311,7 @@ jobs:
         commit: main
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
+          ## 鉴于N1用户群庞大，特单独开此release
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:+o版为flowoffload加速,+版为sfe加速)
         artifacts: ${{ env.FIRMWARE }}/*
