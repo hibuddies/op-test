@@ -372,13 +372,13 @@ jobs:
         #wget $a_beikeyun_sfe
         #wget $a_beikeyun_o
         wget $a_s9xxx_sfe
-        wget $a_s9xxx_o        
+        #wget $a_s9xxx_o        
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
+        #sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
         #sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
@@ -411,7 +411,7 @@ jobs:
         sudo chmod +x *.sh
         #sudo ./mk_beikeyun_opimg.sh
         #sudo ./mk_l1pro_opimg.sh
-        sudo ./mk_n1_opimg.sh
+        #sudo ./mk_n1_opimg.sh
         sudo ./mk_n1_opimg_sfe.sh
         #sudo ./mk_s905x3_opimg.sh
         #sudo ./mk_s905x3_opimg_sfe.sh
@@ -523,13 +523,13 @@ jobs:
         #wget $a_beikeyun_sfe
         #wget $a_beikeyun_o
         wget $a_s9xxx_sfe
-        wget $a_s9xxx_o        
+        #wget $a_s9xxx_o        
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
+        #sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
         #sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
@@ -562,7 +562,7 @@ jobs:
         sudo chmod +x *.sh
         #sudo ./mk_beikeyun_opimg.sh
         #sudo ./mk_l1pro_opimg.sh
-        sudo ./mk_n1_opimg.sh
+        #sudo ./mk_n1_opimg.sh
         sudo ./mk_n1_opimg_sfe.sh
         #sudo ./mk_s905x3_opimg.sh
         #sudo ./mk_s905x3_opimg_sfe.sh
