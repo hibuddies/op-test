@@ -137,7 +137,7 @@ jobs:
     - name: Check Files3
       run: |
         cd /opt/openwrt/tmp
-        rename 's/N1/${{ env.DATE1 }}-gdq-N1/' N1*xz
+        rename 's/N1/${{ env.DATE1 }}-gdq-N1/' N1*img
         ls
 
     - name: xz-z
