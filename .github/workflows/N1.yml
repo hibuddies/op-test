@@ -149,7 +149,7 @@ jobs:
         sudo xz -z *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
-        rename 's/N1/gdq-N1/' N1*xz
+        rename 's/N1/${{ env.DATE }}-gdq-N1/' N1*xz
         wget https://github.com/hibuddies/openwrt/releases/download/ARMv8-gdq-sfe/AllPackages.tar.gz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
@@ -290,7 +290,7 @@ jobs:
         sudo xz -z *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
-        rename 's/N1/mini-N1/' N1*xz
+        rename 's/N1/${{ env.DATE }}-mini-N1/' N1*xz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
