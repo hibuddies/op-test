@@ -48,6 +48,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall pac
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks package/ssocks
 #svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray package/xray
 svn co https://github.com/fw876/helloworld/trunk/xray package/xray
+svn co https://github.com/fw876/helloworld/trunk/ipt2socks-alt package/ipt2socks-alt
 
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-gost package/luci-app-gost
 svn co https://github.com/kenzok8/openwrt-packages/trunk/gost package/gost
