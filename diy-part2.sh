@@ -50,8 +50,8 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks package/ssocks
 svn co https://github.com/fw876/helloworld/trunk/xray package/xray
 svn co https://github.com/fw876/helloworld/trunk/ipt2socks-alt package/ipt2socks-alt
 
-svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-gost package/luci-app-gost
-svn co https://github.com/kenzok8/openwrt-packages/trunk/gost package/gost
+#svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-gost package/luci-app-gost
+#svn co https://github.com/kenzok8/openwrt-packages/trunk/gost package/gost
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
 git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
 # cd package/luci-app-serverchan && git reset --hard 6387b3b47b03d95d3f3bcd42ff98db5bb84fd056 && git pull && cd ../..
