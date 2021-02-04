@@ -7,7 +7,7 @@ env:
   REPO_URL_PASSWALL: https://github.com/xiaorouji/openwrt-passwall
   REPO_BRANCH_PASSWALL: main
   REPO_URL_VSSR: https://github.com/jerrykuku/luci-app-vssr
-  REPO_URL_bypass: https://github.com/garypang13/luci-app-bypass
+  REPO_URL_BYPASS: https://github.com/garypang13/luci-app-bypass
   REPO_BRANCH_BYPASS: main
 
 on:
