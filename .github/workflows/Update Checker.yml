@@ -13,8 +13,8 @@ env:
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 30 0-15 * * *
+ # schedule:
+  #  - cron: 30 0-15 * * *
 
 jobs:
   lede:
