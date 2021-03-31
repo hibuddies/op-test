@@ -85,6 +85,17 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
+    - name: Openwrt version
+      run: |
+        cd openwrt
+        OpVersion1=$(echo "$(cat package/lean/default-settings/files/zzz-default-settings)" | grep -Po "DISTRIB_REVISION=\'\K[^\']*")
+        echo $OpVersion1
+        OpVersion2=$(date "+%Y.%m.%d"\ \compiled\ \by\ \tg:@zhe_teng)
+        echo $OpVersion2
+        sed -i "s/DISTRIB_REVISION=.*/DISTRIB_REVISION=\'$OpVersion1\ $OpVersion2\'\"\ \>>\ \/\etc\/\openwrt_release/" package/lean/default-settings/files/zzz-default-settings
+        echo "$(cat package/lean/default-settings/files/zzz-default-settings)" | grep -Po "DISTRIB_REVISION=\'\K[^\']*"
+        #sed -i "/CPU usage/a\                \<tr><td\ \width=\"33%\"\> 使用帮助\ <\/td><td>点击直达F大帖子：<a href=\"https://www.right.com.cn/forum/thread-4055451-1-1.html\">\ ➦新帖 \</a> 和 <a href=\"https://www.right.com.cn/forum/thread-981406-1-1.html\">\ ➦旧帖 \</a></td></tr>" package/lean/autocore/files/x86/index.htm
+
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
@@ -93,10 +104,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         #sed -i 's/OpenWrt/MRG AutoBuild ${{ env.DATE1 }} @ OpenWrt/g' package/lean/default-settings/files/zzz-default-settings
-
-    - name: View version
-      run: |
-        echo "$(cat /workdir/openwrt/package/lean/default-settings/files/zzz-default-settings)" | grep -Po "DISTRIB_REVISION=\'\K[^\']*"
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -141,6 +148,8 @@ jobs:
         cp openwrt/bin/packages/x86_64/packages/open-vm*.ipk openwrt/bin/targets/*/*
         tar -zcvf AllPackages.tar.gz openwrt/bin/packages
         mv AllPackages.tar.gz openwrt/bin/targets/*/*
+        cp openwrt/.config openwrt/x86_64.config
+        cp openwrt/x86_64.config openwrt/bin/targets/*/*
         cd openwrt/bin/targets/*/*
         ls -a
         rm -rf packages config.buildinfo feeds.buildinfo sha256sums version.buildinfo *.manifest

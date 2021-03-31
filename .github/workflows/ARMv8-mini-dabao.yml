@@ -13,7 +13,7 @@ on:
         required: true
         default: 6
  # schedule:
-  #  - cron: 0 22 * * *
+  #  - cron: 0 23 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -53,6 +53,7 @@ jobs:
         sudo -E apt-get -qq install rename
         sudo -E apt-get -qq install time
         sudo -E apt-get -qq install sshpass
+        sudo -E apt-get -qq install pigz
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -61,6 +62,10 @@ jobs:
         echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
         echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
         echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
+
+    - name: 编译前硬盘容量
+      if: (!cancelled())
+      run: df -hT
 
     - name: Clone source code
       working-directory: /workdir
@@ -86,12 +91,14 @@ jobs:
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
-        #sudo xz -d Armbian*Beike*\+\.img\.xz
-        sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*Aml*\+\.img\.xz
         sudo xz -d Armbian*Aml*\+o*
-        #sudo xz -d Armbian*L1*\+\.img\.xz
-        #sudo xz -d Armbian*L1*\+o*
+        sudo xz -d Armbian*Beike*\+\.img\.xz
+        sudo xz -d Armbian*Beike*\+o*
+        sudo xz -d Armbian*L1*\+\.img\.xz
+        sudo xz -d Armbian*L1*\+o*
+        sudo xz -d Armbian*VPlus*\+\.img\.xz
+        sudo xz -d Armbian*VPlus*\+o*
         sudo mv *.img imgs
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
@@ -123,42 +130,49 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
-        sudo ./mk_beikeyun_opimg.sh
-        #sudo ./mk_l1pro_opimg.sh
-        sudo ./mk_n1_opimg.sh
-        #sudo ./mk_n1_opimg_sfe.sh
-        sudo ./mk_s905x3_opimg.sh
-        sudo ./mk_s905x3_opimg_sfe.sh
-        #sudo ./mk_s922x_opimg.sh
-        #sudo ./mk_s922x_opimg_sfe.sh
-        #sudo ./n1-to-vplus.sh
-        #sudo ./n1-to-vplus_sfe.sh
+        sudo ./mk_h6_vplus_sfe.sh
+        sudo ./mk_h6_vplus.sh
+        sudo ./mk_rk3328_beikeyun_sfe.sh
+        sudo ./mk_rk3328_beikeyun.sh
+        sudo ./mk_rk3328_l1pro_sfe.sh
+        sudo ./mk_rk3328_l1pro.sh
+        sudo ./mk_s905d_n1_sfe.sh
+        sudo ./mk_s905d_n1.sh
+        #sudo ./mk_s905x2_x96max_sfe.sh
+        #sudo ./mk_s905x2_x96max.sh
+        sudo ./mk_s905x3_multi_sfe.sh
+        sudo ./mk_s905x3_multi.sh
+        sudo ./mk_s912_zyxq_sfe.sh
+        sudo ./mk_s912_zyxq.sh
+        #sudo ./mk_s922x_gtking_sfe.sh
+        #sudo ./mk_s922x_gtking.sh
         echo "::set-output name=status::success"
 
     - name: copy update files
       run: |
         cd /opt/openwrt
+        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
         sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
-        #sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
-        #sudo cp files/update-to-emmc.sh tmp/z-update-to-emmc.sh
-        sudo cp files/s905x3/update-s905x3-openwrt.sh tmp/z-update-s905x3-openwrt.sh
-        #sudo cp files/s922x/update-s922x-openwrt.sh tmp/z-update-s922x-openwrt.sh
-        #sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
+        sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
+        sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
 
     - name: Check Files3
       run: |
         cd /opt/openwrt/tmp
         ls
 
-    - name: xz-z
-      id: xz
+    - name: pigz -9
+      id: pigz
       run: |
         sudo chmod  -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp
-        sudo rm -rf *.xz
-        sudo xz -zk *.img
-        sudo rm N1_*\+o.img
+        sudo rm -rf *.gz
+        #sudo rm N1_*\+.*
+        #sudo pigz -9 -k *.img
+        sudo pigz -9 *.img
+        #sudo rm N1_*\+o.img
         sudo rm btld-rk3328.bin
+        wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-mini-sfe/AllPackages.tar.gz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
@@ -166,6 +180,10 @@ jobs:
       run: |
         cd /opt/openwrt/tmp
         ls
+        
+    - name: 编译后硬盘容量
+      if: (!cancelled())
+      run: df -hT
 
     - name: Create release
       id: release
@@ -179,21 +197,23 @@ jobs:
         body: |
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:+o版为flowoffload加速,+版为sfe加速)
-          贝壳云和S905×3在线升级方法：
-             1. 贝壳云：cd /mnt/mmcblk0p4
-               S903×3：cd /mnt/mmcblk2p4
+          下面的sh脚本是固件升级使用
+          在线升级方法：
+             1. 贝壳云、我家云、微加云：cd /mnt/mmcblk0p4
+               N1、S903×3、S922x：cd /mnt/mmcblk2p4
              2. wget 升级脚本链接
              3. wget 固件链接
-             4. chmod +x *.sh
-             5. ./升级脚本名字 img固件名
+             4. gzip -d 上一步下载的固件全名
+             5. chmod +x *.sh
+             6. ./升级脚本名字 img固件名
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Telegram notification
-      if: steps.xz.outputs.status == 'success' && !cancelled()
+      if: steps.pigz.outputs.status == 'success' && !cancelled()
       run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=${{ env.FILE_NAME }}打包完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
 
 #    - name: WeChat notification
-#      if: steps.organize.outputs.status == 'success' && !cancelled()
+#      if: steps.xz.outputs.status == 'success' && !cancelled()
 #      run: curl https://sc.ftqq.com/${{ secrets.ServerChan }}.send?text=${{ env.PRODUCT_NAME }}打包完成
 
 #     - name: Upload package
